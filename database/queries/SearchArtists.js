@@ -25,7 +25,7 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
       return Promise.all([query, Artist.count()])
         .then((results) => {
             return {
-                // this is all from query, the first thing in the resuls array
+                // this is all from query, the first thing in the results array
                 all: results[0],
                 count: results[1],
                 offset,
@@ -37,6 +37,11 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
 // Define the buildQuery function
     const buildQuery = (criteria) => {
         const query = {};
+
+        if (criteria.name) {
+            // add text property to query https://www.mongodb.com/docs/v7.0/reference/operator/query/text/#mongodb-query-op.-text
+            query.$text = { $search: criteria.name };
+        }
         
         if (criteria.age) {
             // adding .age below automatically puts key it into query variable. only if it's selected
