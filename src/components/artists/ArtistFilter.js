@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+rsimport React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Range } from '../filters';
@@ -89,7 +89,7 @@ class ArtistFilter extends Component {
               <Field id="sort" name="sort" component="select">
                 <option value="name">Name</option>
                 <option value="age">Age</option>
-                <option value="albums">Albums Released</option>
+                <option value="albums">Years Active</option>
               </Field>
             </div>
 
