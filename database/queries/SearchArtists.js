@@ -9,19 +9,18 @@ const Artist = require('../models/artist');
  * @return {promise} A promise that resolves with the artists, count, offset, and limit
  */
 module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
+    console.log(criteria);
+
     // write a query that will follow sort, offset, limit ooptions only 
     // do not worry about criteria yet   
-
-    // get all the artists
-    const query = Artist.find({})
+    // get all the artists ....  x that - helper function called buildQuery
+    const query = Artist.find(buildQuery(criteria))
         // adding sort property variable at run time, give it value of 1 - truthy
       .sort({ [sortProperty]: 1 })
     //   skip by offset number - offset means how many records to skip. 
       .skip(offset)
     //   limit to 
       .limit(limit);
-
-
 
       return Promise.all([query, Artist.count()])
         .then((results) => {
@@ -34,6 +33,32 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
             };
         });
 };
+
+// Define the buildQuery function
+    const buildQuery = (criteria) => {
+        const query = {};
+        
+        if (criteria.age) {
+            // adding .age below automatically puts key it into query variable. only if it's selected
+            query.age = { 
+                $gte: criteria.age.min,
+                $lte: criteria.age.max 
+            };
+        }
+
+        if (criteria.yearsActive) {
+            query.yearsActive = {
+                $gte: criteria.yearsActive.min,
+                $lte: criteria.yearsActive.max
+            };
+        }
+
+        return query;
+    };
+
+
+
+
 
 // SOLO ATTEMPT 
     // const query = Artist

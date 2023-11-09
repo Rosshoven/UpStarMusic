@@ -89,7 +89,7 @@ class ArtistFilter extends Component {
               <Field id="sort" name="sort" component="select">
                 <option value="name">Name</option>
                 <option value="age">Age</option>
-                <option value="albums">Albums Released</option>
+                <option value="albums">Years Active</option>
               </Field>
             </div>
 
