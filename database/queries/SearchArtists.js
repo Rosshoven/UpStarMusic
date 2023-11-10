@@ -18,7 +18,8 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
     //   limit to 
       .limit(limit);
 
-      return Promise.all([query, Artist.count()])
+    //   getting a count on all records found in the query
+      return Promise.all([query, Artist.find(buildQuery(criteria)).count()])
         .then((results) => {
             return {
                 // this is all from query, the first thing in the results array
@@ -41,7 +42,7 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
         }
         
         if (criteria.age) {
-            // adding .age below automatically puts key it into query variable. only if it's selected
+          // adding .age below automatically puts key it into query variable. only if it's selected
             query.age = { 
                 $gte: criteria.age.min,
                 $lte: criteria.age.max 
@@ -58,10 +59,6 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
         return query;
     };
 
-
-
-
-
 // SOLO ATTEMPT 
     // const query = Artist
     //   .find({})
@@ -74,5 +71,3 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
     //     .then(() => {
     //         return { all: [query], count: length, offset: 0, limit: 20 };
     //     });
-
-
