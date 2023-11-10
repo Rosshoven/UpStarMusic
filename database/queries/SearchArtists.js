@@ -41,6 +41,7 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
         if (criteria.name) {
             // add text property to query https://www.mongodb.com/docs/v7.0/reference/operator/query/text/#mongodb-query-op.-text
             query.$text = { $search: criteria.name };
+            // have to create an index on the name property
         }
         
         if (criteria.age) {
