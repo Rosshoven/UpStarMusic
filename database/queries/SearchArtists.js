@@ -8,12 +8,8 @@ const Artist = require('../models/artist');
  * @param {integer} limit How many records to return in the result set
  * @return {promise} A promise that resolves with the artists, count, offset, and limit
  */
-module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
-    console.log(criteria);
-
-    // write a query that will follow sort, offset, limit ooptions only 
-    // do not worry about criteria yet   
-    // get all the artists ....  x that - helper function called buildQuery
+module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {  
+    // get all the artists Artist.find({})....  x that - helper function called buildQuery
     const query = Artist.find(buildQuery(criteria))
         // adding sort property variable at run time, give it value of 1 - truthy
       .sort({ [sortProperty]: 1 })
