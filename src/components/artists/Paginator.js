@@ -6,7 +6,7 @@ class Paginator extends Component {
   back() {
     const { offset, limit, form: { filters: { values } } } = this.props;
 
-    if (offset === 0 ) { return; }
+    if (offset === 0) { return; }
 
     this.props.searchArtists(values, offset - 10, limit);
   }
@@ -60,7 +60,7 @@ class Paginator extends Component {
 const mapStateToProps = ({ artists, form }) => {
   const { limit, offset, count } = artists;
 
-  return { limit, offset, count, form};
+  return { limit, offset, count, form };
 };
 
 export default connect(mapStateToProps, actions)(Paginator);
